@@ -146,8 +146,13 @@ app.delete('/mcp', authGuard, async (req, res) => {
 });
 
 // --- Start ---
-const PORT = process.env.MCP_PORT || 3001;
+// Passenger pasa el puerto via 'passenger' o el env, en otros entornos usamos MCP_PORT
+const PORT = process.env.PORT || process.env.MCP_PORT || 3001;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Nutrizia MCP HTTP server running on port ${PORT}`);
   console.log(`Auth: ${MCP_AUTH_TOKEN ? 'enabled (MCP_AUTH_TOKEN set)' : 'DISABLED (set MCP_AUTH_TOKEN to secure)'}`);
+  // Signal Passenger that the app is ready
+  if (typeof PhusionPassenger !== 'undefined') {
+    console.log('Running under Phusion Passenger');
+  }
 });
