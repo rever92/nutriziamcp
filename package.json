@@ -1,0 +1,14 @@
+{
+  "name": "nutrizia-mcp",
+  "version": "1.0.0",
+  "description": "Remote MCP server for Nutrizia — exposes nutrition tools to Claude.ai via HTTPS",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "setup": "node bin/setup.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "express": "^4.21.0"
+  }
+}
