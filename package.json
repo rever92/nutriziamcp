@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node src/server.js",
+    "stdio": "node src/server-stdio.js",
     "setup": "node bin/setup.js"
   },
   "dependencies": {

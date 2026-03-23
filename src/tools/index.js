@@ -140,13 +140,15 @@ export const toolHandlers = {
     } catch (e) { return fail(e.status || 500, e.message); }
   },
 
-  async nutrizia_menu_update({ id, addRecipe, removeRecipe, addIngredient, removeIngredient }) {
+  async nutrizia_menu_update({ id, addRecipe, removeRecipe, clearRecipes, addIngredient, removeIngredient, clearIngredients }) {
     try {
       const body = {};
       if (addRecipe) body.addRecipe = addRecipe;
       if (removeRecipe) body.removeRecipe = removeRecipe;
+      if (clearRecipes) body.clearRecipes = true;
       if (addIngredient) body.addIngredient = addIngredient;
       if (removeIngredient) body.removeIngredient = removeIngredient;
+      if (clearIngredients) body.clearIngredients = true;
       return ok(await createClient().put(`menuschema/${id}`, body));
     } catch (e) { return fail(e.status || 500, e.message); }
   },

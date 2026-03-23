@@ -62,13 +62,13 @@ export const toolSchemas = {
   },
 
   nutrizia_recipes_create: {
-    description: 'Create a new recipe with ingredients, steps, and metadata.',
+    description: 'Create a new recipe. IMPORTANT: tipoDeCocina, restricciones, and categoriaRecetas accept both ObjectIds and name strings (e.g. "Mediterránea"). Use nutrizia_taxonomy_list to discover valid values. Components use ingredient ObjectIds from nutrizia_ingredients_search or nutrizia_ingredients_list.',
     inputSchema: {
       type: 'object',
       properties: {
         recipe: {
           type: 'object',
-          description: 'Recipe object with name, ingredients, components, steps, servings, etc.',
+          description: 'Recipe object. Required: name, components (array of {refModel:"Ingredient", refId:"ingredientId", quantity:N, unit:"gramos|uds|cucharadas|cucharaditas"}), steps (array of strings), servings (number). Optional: tipoDeCocina (array of IDs or names), restricciones (array of IDs or names), categoriaRecetas (array of IDs or names), difficulty ("Baja"|"Media"|"Alta"), momentoDelDia (array of "Desayuno"|"Comida"|"Cena"|"Snack"), tipoPlato (array of strings like "Principal"), prepTime ({hours:N, minutes:N}), mainImage (URL).',
         },
       },
       required: ['recipe'],
@@ -172,13 +172,14 @@ export const toolSchemas = {
   },
 
   nutrizia_menu_update: {
-    description: 'Update a menu entry: add/remove recipes or ingredients.',
+    description: 'Update a menu entry: add/remove recipes or ingredients. Use clearRecipes/clearIngredients to empty all at once.',
     inputSchema: {
       type: 'object',
       properties: {
         id: { type: 'string', description: 'Menu entry ID' },
         addRecipe: { type: 'string', description: 'Recipe ID to add' },
         removeRecipe: { type: 'string', description: 'Recipe ID to remove' },
+        clearRecipes: { type: 'boolean', description: 'Set true to remove ALL recipes from this entry' },
         addIngredient: {
           type: 'object',
           properties: {
@@ -189,6 +190,7 @@ export const toolSchemas = {
           description: 'Ingredient to add',
         },
         removeIngredient: { type: 'string', description: 'Ingredient ID to remove' },
+        clearIngredients: { type: 'boolean', description: 'Set true to remove ALL ingredients from this entry' },
       },
       required: ['id'],
     },
